@@ -6,5 +6,8 @@ FROM jupyter/scipy-notebook:a330137134e7
 
 RUN jupyter labextension install jupyterlab_vim
 RUN pip install altair
+RUN mkdir -p /home/jovyan/.jupyter
+
+COPY jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 WORKDIR /home/jovyan/work
