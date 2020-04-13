@@ -2,7 +2,7 @@ version: '3'
 services:
   lab:
     container_name: jupyterlab
-    build: .
+    image: yufernando/jupyterlab-vim
     volumes:
       - ./notebooks:/home/jovyan/work
     working_dir: /home/jovyan/work/
