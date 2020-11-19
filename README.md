@@ -1,7 +1,10 @@
-# JupyterLab Docker
+# JupyterLab Docker Version 1
 
-This repository contains docker files for a Jupyter Scipy Notebook with Vim keybindings. It mounts
-a volume in the host folder `notebooks`.
+This repository contains a Docker files for a Jupyter Scipy Notebook (v1) with Vim keybindings. 
+
+Check the latest version using Jupyterlab v2 in the `master` branch.
+
+The docker image mounts a volume in the host folder `notebooks`.
 
 ## Instructions
 
