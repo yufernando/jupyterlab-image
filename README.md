@@ -46,13 +46,16 @@ Remove the container:
 
 ## Using make
 
-You can simplify the workflow above using `make`. The image is tagged with the latest commit hash. You can build it by running:
+You can simplify the workflow above using `make`. 
 
+You can build the image by running:
 ```
 make build
 ```
 
-Push it to Docker Hub:
+This will create an image with two tags: the latest commit hash and "latest".
+
+Then push the image with both tags to Docker Hub:
 
 ```
 make push
