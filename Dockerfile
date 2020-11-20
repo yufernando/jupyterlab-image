@@ -4,6 +4,7 @@ RUN pip install altair
 # RUN mkdir -p /home/jovyan/.jupyter
 
 RUN jupyter labextension install @axlair/jupyterlab_vim --no-build && \
+    jupyter labextension install @jupyterlab/toc --no-build && \
 #from https://github.com/jupyterlab/jupyterlab/issues/4930#issuecomment-446597498
     jupyter lab build --minimize=False && \
     jupyter lab clean && \
