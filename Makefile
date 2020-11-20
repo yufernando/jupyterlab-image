@@ -1,4 +1,4 @@
-NAME 	:= yufernando/jupyterlab-vim
+NAME 	:= yufernando/jupyterlab
 TAG 	:= $$(git rev-parse --short HEAD)
 IMG 	:= ${NAME}:${TAG}
 LATEST 	:= ${NAME}:latest
