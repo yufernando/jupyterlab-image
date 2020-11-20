@@ -1,13 +1,19 @@
-# This is the latest Jupyterlab v1 image, compatible with jupyterlab-vim
-# FROM jupyter/scipy-notebook:e255f1aa00b2
-# FROM jupyter/scipy-notebook:d2c9b7ad84e2
-# FROM jupyter/scipy-notebook:abdb27a6dfbb
-FROM jupyter/scipy-notebook:a330137134e7
+FROM jupyter/scipy-notebook:42f4c82a07ff
 
-RUN jupyter labextension install jupyterlab_vim
 RUN pip install altair
-RUN mkdir -p /home/jovyan/.jupyter
+# RUN mkdir -p /home/jovyan/.jupyter
 
-COPY jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
+RUN jupyter labextension install @axlair/jupyterlab_vim --no-build && \
+#from https://github.com/jupyterlab/jupyterlab/issues/4930#issuecomment-446597498
+    jupyter lab build --minimize=False && \
+    jupyter lab clean && \
+    jlpm cache clean && \
+    npm cache clean --force && \
+    rm -rf $HOME/.node-gyp && \
+    rm -rf $HOME/.local && \
+    rm -rf $HOME/.cache/yarn && \
+    fix-permissions $CONDA_DIR $HOME
+
+# COPY jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 WORKDIR /home/jovyan/work
