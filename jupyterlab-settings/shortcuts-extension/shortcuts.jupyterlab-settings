@@ -1,0 +1,13 @@
+{
+  "shortcuts": [
+    {
+      "command": "quickopen:activate",
+      "keys": [
+        "Accel Ctrl P"
+      ],
+      "selector": "body",
+      "title": "Activate Quick Open",
+      "category": "Main Area"
+    }
+  ]
+}

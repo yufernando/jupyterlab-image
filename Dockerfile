@@ -29,6 +29,11 @@ RUN conda install --quiet --yes \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR $HOME
 
+# Copy settings to jupyterlab
+RUN mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension && \
+    mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/shortcuts-extension
+ADD jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab
+
 # COPY jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 WORKDIR /home/jovyan/work
