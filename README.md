@@ -5,11 +5,12 @@ This is the repository of my custom JupyterLab Docker image.
 Specs:
 
 - Vim Keybindings.
-- Variable inspector.
-- Jupyterlab-git extension.
-- Material Darker Theme
 - Jupyterlab Table of Contents.
+- Jupyterlab-git extension.
+- Variable inspector.
 - NBDime for easy diffing Jupyter Notebooks.
+- Material Darker Theme
+- Quick-Open Palette to open files.
 
 ## Build the Docker image
 
