@@ -1,8 +1,17 @@
 # JupyterLab Docker
 
-This repository contains docker files for a Jupyter Scipy Notebook with Vim keybindings. 
+This is the repository of my custom JupyterLab Docker image. 
 
-## Build a Docker image
+Specs:
+
+- Vim Keybindings.
+- Variable inspector.
+- Jupyterlab-git extension.
+- Material Darker Theme
+- Jupyterlab Table of Contents.
+- NBDime for easy diffing Jupyter Notebooks.
+
+## Build the Docker image
 
 ```
 git clone git@github.com/yufernando/jupyterlab-docker
