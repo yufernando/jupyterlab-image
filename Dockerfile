@@ -1,5 +1,5 @@
 # November 2020
-FROM jupyter/scipy-notebook:42f4c82a07ff
+FROM jupyter/scipy-notebook:lab-3.0.16
 
 # RUN mkdir -p /home/jovyan/.jupyter
 
