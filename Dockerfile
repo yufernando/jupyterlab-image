@@ -5,7 +5,7 @@ FROM jupyter/scipy-notebook:lab-3.0.16
 
 # Install extensions
 RUN jupyter labextension install @axlair/jupyterlab_vim --no-build && \
-    jupyter labextension install @jupyterlab/toc --no-build && \
+    # jupyter labextension install @jupyterlab/toc --no-build && \
     jupyter labextension install @lckr/jupyterlab_variableinspector --no-build && \
     # jupyter labextension install @oriolmirosa/jupyterlab_materialdarker && \ 
     conda install -c conda-forge jupyterlab-git && \
