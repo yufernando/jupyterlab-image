@@ -9,7 +9,7 @@ RUN jupyter labextension install @axlair/jupyterlab_vim --no-build && \
     jupyter labextension install @lckr/jupyterlab_variableinspector --no-build && \
     # jupyter labextension install @oriolmirosa/jupyterlab_materialdarker && \ 
     conda install -c conda-forge jupyterlab-git && \
-    pip install jupyterlab-quickopen && \
+    # pip install jupyterlab-quickopen && \
     jupyter labextension install @parente/jupyterlab-quickopen --no-build && \
 #from https://github.com/jupyterlab/jupyterlab/issues/4930#issuecomment-446597498
     jupyter lab build --minimize=False && \
