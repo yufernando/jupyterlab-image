@@ -1,5 +1,5 @@
 # July 2021
-FROM jupyter/scipy-notebook:lab-3.0.16
+FROM jupyter/scipy-notebook:lab-3.1.4
 
 # RUN mkdir -p /home/jovyan/.jupyter
 
