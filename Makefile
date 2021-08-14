@@ -1,3 +1,9 @@
+# Makefile to build my personal jupyterlab image
+#
+# Example:
+#   make build tag=lab-3.1.6
+#   make push
+
 img 	:= yufernando/jupyterlab
 commit 	:= $$(git rev-parse --short HEAD)
 tag		:= latest
