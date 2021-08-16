@@ -9,6 +9,8 @@ Specs:
     - Jupyterlab Table of Contents
     - Jupyterlab-git extension
 - NBDime for easy diffing Jupyter Notebooks
+- Terminal: Zsh, Oh-my-zsh
+- Linux utilities: neovim, curl, tmux, ripgrep
 
 ## Instructions: build and push the image
 
