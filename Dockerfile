@@ -1,15 +1,40 @@
-# July 2021
+# My Custom JupyterLab Image (August 2021)
 FROM jupyter/scipy-notebook:lab-3.1.4
 
-# Install extensions
-RUN pip install jupyterlab_vim && \
-    pip install lckr-jupyterlab-variableinspector && \
+LABEL maintaner="Fernando Yu <yufernando@gmail.com>"
+
+# Root
+USER root
+ENV HOME /root
+
+# Setup zsh and linux tools
+RUN apt update && apt -y upgrade     && \
+    apt install make
+
+# Configure root
+RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
+    cd ~/.dotfiles && make config_install
+
+# User
+USER $NB_UID
+ENV HOME /home/jovyan
+
+# Configure user
+RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
+    cd ~/.dotfiles && make config_install
+
+# Fix oh-my-zsh permission bug
+RUN sed -i '1iZSH_DISABLE_COMPFIX=true' ~/.zshrc
+
+# Install JupyterLab extensions
+RUN pip install                         \
+    jupyterlab_vim                      \
+    lckr-jupyterlab-variableinspector
 
 # Install packages
-RUN conda install --quiet --yes \ 
-    nbdime \
-    && \
-    conda clean --all -f -y && \
+RUN conda install --quiet --yes         \ 
+    nbdime                           && \
+    conda clean --all -f -y          && \
     fix-permissions $CONDA_DIR $HOME
 
 WORKDIR /home/jovyan/work
