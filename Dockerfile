@@ -9,10 +9,9 @@ ENV HOME /root
 
 # Setup zsh and linux tools
 RUN apt update && apt -y upgrade     && \
-    apt install make
-
-# Configure root
-RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
+    apt install make                 && \
+    # Configure root
+    git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
     cd ~/.dotfiles && make config_install
 
 # User
@@ -21,20 +20,17 @@ ENV HOME /home/jovyan
 
 # Configure user
 RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
-    cd ~/.dotfiles && make config_install
-
-# Fix oh-my-zsh permission bug
-RUN sed -i '1iZSH_DISABLE_COMPFIX=true' ~/.zshrc
-
+    cd ~/.dotfiles && make config_install && \
+    # Fix oh-my-zsh permission bug
+    sed -i '1iZSH_DISABLE_COMPFIX=true' ~/.zshrc && \ 
 # Install JupyterLab extensions
-RUN pip install                         \
-    jupyterlab_vim                      \
-    lckr-jupyterlab-variableinspector
-
-# Install packages
-RUN conda install --quiet --yes         \ 
-    nbdime                           && \
-    conda clean --all -f -y          && \
+    pip install                          \
+    jupyterlab_vim                       \
+    lckr-jupyterlab-variableinspector && \
+# Install conda packages
+    conda install --quiet --yes          \ 
+    nbdime                            && \
+    conda clean --all -f -y           && \
     fix-permissions $CONDA_DIR $HOME
 
 WORKDIR /home/jovyan/work
