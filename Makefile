@@ -10,10 +10,15 @@ tag		:= latest
 port	:= 8888
 name	:= jupyterlab
 
-.PHONY: build tag push run
+.PHONY: build build-force tag push run
 
 build: 
 	@docker build -t $(img):$(commit) .
+	@docker tag $(img):$(commit) $(img):latest
+	@docker tag $(img):$(commit) ${img}:$(tag)
+
+build-force:
+	@docker build -t $(img):$(commit) . --no-cache
 	@docker tag $(img):$(commit) $(img):latest
 	@docker tag $(img):$(commit) ${img}:$(tag)
 
