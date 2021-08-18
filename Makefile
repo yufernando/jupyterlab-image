@@ -2,6 +2,7 @@
 #
 # Example:
 #   make build tag=lab-3.1.6
+#   make build-force tag=lab-3.1.6
 #   make push
 
 img 	:= yufernando/jupyterlab
