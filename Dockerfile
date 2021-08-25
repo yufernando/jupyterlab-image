@@ -26,7 +26,9 @@ RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotf
 # Install JupyterLab extensions
     pip install                          \
     jupyterlab_vim                       \
-    lckr-jupyterlab-variableinspector && \
+    lckr-jupyterlab-variableinspector    \
+    openpyxl                             \
+    && \
 # Install conda packages
     conda install --quiet --yes          \ 
     nbdime                            && \
