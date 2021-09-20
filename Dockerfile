@@ -9,7 +9,7 @@ ENV HOME /root
 
 # Setup zsh and linux tools
 RUN apt update && apt -y upgrade     && \
-    apt install make                 && \
+    apt install -y make              && \
     # Configure root
     git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles ~/.dotfiles && \ 
     cd ~/.dotfiles && make config_install
