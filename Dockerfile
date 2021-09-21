@@ -1,7 +1,7 @@
-# My Custom JupyterLab Image (August 2021)
+# My Custom JupyterLab Image (September 2021)
 FROM jupyter/scipy-notebook:lab-3.1.4
 
-LABEL maintaner="Fernando Yu <yufernando@gmail.com>"
+LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 
 # Root
 USER root
@@ -29,8 +29,11 @@ RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotf
     lckr-jupyterlab-variableinspector    \
     openpyxl                             \
     && \
-# Install conda packages
-    conda install --quiet --yes          \ 
+# Configure conda
+    conda config --add channels defaults && \
+    conda config --add channels conda-forge && \
+# Conda packages
+    conda install --quiet --yes          \
     nbdime                            && \
     conda clean --all -f -y           && \
     fix-permissions $CONDA_DIR $HOME
