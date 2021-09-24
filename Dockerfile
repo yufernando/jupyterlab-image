@@ -21,7 +21,7 @@ ENV HOME /root
 WORKDIR $HOME/.dotfiles
 RUN make install && \
     # Fix oh-my-zsh permission bug
-    sed -i '1iZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
 # USER INSTALL
 USER $NB_UID
@@ -31,7 +31,7 @@ RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotf
 WORKDIR $HOME/.dotfiles
 RUN make install && \
     # Fix oh-my-zsh permission bug
-    sed -i '1iZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
 # INSTALL PYTHON PACKAGES
 # Install JupyterLab extensions
