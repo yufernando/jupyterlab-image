@@ -1,13 +1,13 @@
 # Makefile to build my personal Jupyterlab image
 #
 # Example:
-#   make build tag=lab-3.1.6       -> builds an image with 3 tags: commit, latest and tag
-#   make build-force tag=lab-3.1.6 -> builds from scratch, ignoring docker cache
+#   make build tag=lab-3.1.12       -> builds an image with 3 tags: commit, latest and tag
+#   make build-force tag=lab-3.1.12 -> builds from scratch, ignoring docker cache
 #   make push                      -> push all images to Docker hub
 #
 # Routine workflow:
 # 1. Add changes to Dockerfile
-# 2. $ make build tag=lab-3.1.6
+# 2. $ make build tag=lab-3.1.12
 # 3. $ make push
 
 img 	:= yufernando/jupyterlab

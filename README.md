@@ -4,7 +4,7 @@ This is the repository of my custom JupyterLab Docker image.
 
 Specs:
 
-- Jupyterlab 3.1.6
+- Jupyterlab 3.1.12
     - Vim Keybindings
     - Jupyterlab Table of Contents
     - Jupyterlab-git extension
@@ -28,7 +28,7 @@ This will create two tags: `latest` and the latest commit hash.
 
 You can also add a third custom tag:
 ```
-make build tag=lab-3.1.6
+make build tag=lab-3.1.12
 ```
 
 Push all tags to Docker Hub:
