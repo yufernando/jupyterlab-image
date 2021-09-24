@@ -19,9 +19,7 @@ ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=u
 USER root
 ENV HOME /root
 WORKDIR $HOME/.dotfiles
-RUN make install && \
-    # Fix oh-my-zsh permission bug
-    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+RUN make install
 
 # USER INSTALL
 USER $NB_UID
@@ -29,9 +27,7 @@ ENV HOME /home/jovyan
 # Get User dotfiles
 RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles $HOME/.dotfiles
 WORKDIR $HOME/.dotfiles
-RUN make install && \
-    # Fix oh-my-zsh permission bug
-    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+RUN make install
 
 # INSTALL PYTHON PACKAGES
 # Install JupyterLab extensions
@@ -55,11 +51,15 @@ ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/
 # ROOT DOTFILES CONFIG
 USER root
 WORKDIR $HOME/.dotfiles
-RUN make config
+RUN make config && \
+    # Fix oh-my-zsh permission bug
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
 # USER DOTFILES CONFIG
 USER $NB_UID
 WORKDIR $HOME/.dotfiles
-RUN make config
+RUN make config && \
+    # Fix oh-my-zsh permission bug
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
 WORKDIR /home/jovyan/work
