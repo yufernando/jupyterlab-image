@@ -10,23 +10,23 @@ RUN apt update && apt -y upgrade && \
     apt install -y make
 
 # Get Root dotfiles
-RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles $HOME/.dotfiles
+RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles "${HOME}/.dotfiles"
 
 # CHECK IF 2_install.sh HAS CHANGES
 ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=ubuntu /tmp/2_install-version.json
 
 # ROOT INSTALL
-USER root
-ENV HOME /root
-WORKDIR $HOME/.dotfiles
+# USER root
+# ENV HOME /root
+WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
 # USER INSTALL
-USER $NB_UID
-ENV HOME /home/jovyan
+USER ${NB_UID}
+ENV HOME "/home/${NB_USER}"
 # Get User dotfiles
-RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles $HOME/.dotfiles
-WORKDIR $HOME/.dotfiles
+RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles "${HOME}/.dotfiles"
+WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
 # INSTALL PYTHON PACKAGES
@@ -50,16 +50,20 @@ ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/
 
 # ROOT DOTFILES CONFIG
 USER root
-WORKDIR $HOME/.dotfiles
-RUN make config && \
-    # Fix oh-my-zsh permission bug
-    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+ENV HOME /root
+WORKDIR "${HOME}/.dotfiles"
+RUN make config
+# RUN make config && \
+#     # Fix oh-my-zsh permission bug
+#     sed -i '1i ZSH_DISABLE_COMPFIX=true' "${HOME}/.zshrc"
 
 # USER DOTFILES CONFIG
-USER $NB_UID
-WORKDIR $HOME/.dotfiles
-RUN make config && \
-    # Fix oh-my-zsh permission bug
-    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+USER ${NB_UID}
+ENV HOME "/home/${NB_USER}"
+WORKDIR "${HOME}/.dotfiles"
+RUN make config
+# RUN make config && \
+#     # Fix oh-my-zsh permission bug
+#     sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
-WORKDIR /home/jovyan/work
+WORKDIR "${HOME}"
