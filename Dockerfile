@@ -16,8 +16,6 @@ RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotf
 ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=ubuntu /tmp/2_install-version.json
 
 # ROOT INSTALL
-# USER root
-# ENV HOME /root
 WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
@@ -52,18 +50,16 @@ ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/
 USER root
 ENV HOME /root
 WORKDIR "${HOME}/.dotfiles"
-RUN make config
-# RUN make config && \
-#     # Fix oh-my-zsh permission bug
-#     sed -i '1i ZSH_DISABLE_COMPFIX=true' "${HOME}/.zshrc"
+RUN make config && \
+    # Fix oh-my-zsh permission bug
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' "${HOME}/.zshrc"
 
 # USER DOTFILES CONFIG
 USER ${NB_UID}
 ENV HOME "/home/${NB_USER}"
 WORKDIR "${HOME}/.dotfiles"
-RUN make config
-# RUN make config && \
-#     # Fix oh-my-zsh permission bug
-#     sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+RUN make config && \
+    # Fix oh-my-zsh permission bug
+    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
 WORKDIR "${HOME}"
