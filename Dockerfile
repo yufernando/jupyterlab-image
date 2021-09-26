@@ -62,4 +62,4 @@ RUN make config && \
     # Fix oh-my-zsh permission bug
     sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
 
-WORKDIR "${HOME}"
+WORKDIR "${HOME}/work"
