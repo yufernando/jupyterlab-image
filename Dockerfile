@@ -60,6 +60,6 @@ ENV HOME "/home/${NB_USER}"
 WORKDIR "${HOME}/.dotfiles"
 RUN make config && \
     # Fix oh-my-zsh permission bug
-    sed -i '1i ZSH_DISABLE_COMPFIX=true' $HOME/.zshrc
+    /bin/zsh -ic "compaudit | xargs chmod g-w,o-w"
 
 WORKDIR "${HOME}/work"
