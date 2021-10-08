@@ -33,6 +33,7 @@ RUN pip install                          \
     jupyterlab_vim                       \
     lckr-jupyterlab-variableinspector    \
     openpyxl                             \
+    pynvim                               \
     && \
 # Configure conda
     conda config --add channels defaults && \
@@ -61,6 +62,7 @@ WORKDIR "${HOME}/.dotfiles"
 RUN make config && \
     # Fix oh-my-zsh permission bug
     sed -i '1i ZSH_DISABLE_COMPFIX=true' "${HOME}/.zshrc" && \
-    /bin/zsh -ic "compaudit | xargs chmod g-w,o-w"
+    /bin/zsh -ic "compaudit | xargs chmod g-w,o-w" && \
+    echo "let g:python3_host_prog  = '/opt/conda/bin/python3'" >> "${HOME}/.config/nvim/init.vim"
 
 WORKDIR "${HOME}/work"
