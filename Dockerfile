@@ -39,7 +39,7 @@ RUN pip install                          \
     conda config --add channels defaults && \
     conda config --add channels conda-forge && \
 # Conda packages
-    conda install --quiet --yes          \
+    mamba install --quiet --yes          \
     nbdime                            && \
     conda clean --all -f -y           && \
     fix-permissions $CONDA_DIR $HOME
