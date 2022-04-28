@@ -1,5 +1,5 @@
 # My Custom JupyterLab Image (April 2022)
-FROM jupyter/scipy-notebook:lab-3.3.3
+FROM jupyter/scipy-notebook:lab-3.3.4
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 
@@ -45,6 +45,7 @@ RUN pip install                          \
     fix-permissions $CONDA_DIR $HOME
 
 # CHECK IF DOTFILES HAVE CHANGES
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/3_config.sh?ref=ubuntu /tmp/3_config-version.json
 ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/dotfiles-version.json
 
 # ROOT DOTFILES CONFIG
