@@ -5,6 +5,7 @@
 #   make build tag=lab-3.3.3			-> builds an image with 3 tags: commit, latest and tag
 #   make build-no-cache tag=lab-3.3.3	-> builds from scratch, ignoring docker cache
 #   make push							-> push all images to Docker hub
+#   make build tag=smk-3.3.3 dockerfile=Dockerfile-snakemake -> alternative Dockerfile
 #
 # Routine workflow:
 # 1. Add changes to Dockerfile
@@ -16,16 +17,17 @@ commit 	:= $$(git rev-parse --short HEAD)
 tag		:= latest
 port	:= 8888
 name	:= jupyterlab
+dockerfile := Dockerfile
 
 .PHONY: build build-no-cache tag push run
 
 build: ## Build image
-	@docker build -t $(img):$(commit) .
+	@docker build -f $(dockerfile) -t $(img):$(commit) .
 	@docker tag $(img):$(commit) $(img):latest
 	@docker tag $(img):$(commit) ${img}:$(tag)
 
 build-no-cache: ## Build image without cache
-	@docker build -t $(img):$(commit) . --no-cache
+	@docker build -f $(dockerfile) -t $(img):$(commit) . --no-cache
 	@docker tag $(img):$(commit) $(img):latest
 	@docker tag $(img):$(commit) ${img}:$(tag)
 
