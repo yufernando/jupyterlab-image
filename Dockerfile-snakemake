@@ -1,0 +1,16 @@
+# Jupyterlab with Snakemake Image (April 2022)
+FROM yufernando/jupyterlab:lab-3.3.4
+
+LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
+
+# USER INSTALL
+USER ${NB_UID}
+
+# INSTALL PYTHON PACKAGES
+RUN mamba install --quiet --yes          \
+    -c bioconda snakemake             && \
+    conda clean --all -f -y           && \
+    fix-permissions $CONDA_DIR $HOME
+
+ENV HOME "/home/${NB_USER}"
+WORKDIR "${HOME}/work"
