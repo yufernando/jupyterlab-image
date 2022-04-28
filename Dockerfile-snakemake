@@ -5,12 +5,11 @@ LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 
 # USER INSTALL
 USER ${NB_UID}
+ENV HOME "/home/${NB_USER}"
 
 # INSTALL PYTHON PACKAGES
 RUN mamba install --quiet --yes          \
     -c bioconda snakemake             && \
-    conda clean --all -f -y           && \
-    fix-permissions $CONDA_DIR $HOME
+    conda clean --all -f -y
 
-ENV HOME "/home/${NB_USER}"
 WORKDIR "${HOME}/work"
