@@ -8,9 +8,14 @@
 #   make build tag=smk-3.3.3 dockerfile=Dockerfile-snakemake -> alternative Dockerfile
 #
 # Routine workflow:
-# 1. Add changes to Dockerfile
-# 2. $ make build tag=lab-3.3.3
-# 3. $ make push
+#   1. Add changes to Dockerfile
+#   2. $ make build tag=lab-3.3.3
+#   3. $ make push
+#
+# Snakemake workflow
+#   1. Add changes to Dockerfile-snakemake
+#   2. $ make build tag=snakemake dockerfile=Dockerfile-snakemake
+#   3. $ make push tag=snakemake
 
 img 	:= yufernando/jupyterlab
 commit 	:= $$(git rev-parse --short HEAD)
