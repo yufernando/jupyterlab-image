@@ -13,7 +13,7 @@ RUN apt update && apt -y upgrade && \
 RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles "${HOME}/.dotfiles"
 
 # CHECK IF 2_install.sh HAS CHANGES
-ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=ubuntu /tmp/2_install-version.json
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/3_install.sh?ref=ubuntu /tmp/3_install-version.json
 
 # ROOT INSTALL
 WORKDIR "${HOME}/.dotfiles"
@@ -40,7 +40,7 @@ RUN conda config --add channels defaults    && \
     fix-permissions $CONDA_DIR $HOME
 
 # CHECK IF DOTFILES HAVE CHANGES
-ADD https://api.github.com/repos/yufernando/dotfiles/contents/3_config.sh?ref=ubuntu /tmp/3_config-version.json
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/4_config.sh?ref=ubuntu /tmp/4_config-version.json
 ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/dotfiles-version.json
 
 # ROOT DOTFILES CONFIG
