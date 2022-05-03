@@ -28,20 +28,15 @@ WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
 # INSTALL PYTHON PACKAGES
-# Install JupyterLab extensions
-RUN pip install                          \
-    jupyterlab_vim                       \
-    lckr-jupyterlab-variableinspector    \
-    openpyxl                             \
-    pynvim                               \
-    && \
-# Configure conda
-    conda config --add channels defaults && \
+RUN conda config --add channels defaults    && \
     conda config --add channels conda-forge && \
-# Conda packages
-    mamba install --quiet --yes          \
-    nbdime                            && \
-    conda clean --all -f -y           && \
+    mamba install --quiet --yes                \
+    jupyterlab_vim                             \
+    nbdime                                     \
+    jupyterlab-variableinspector               \
+    openpyxl                                   \
+    pynvim                                  && \
+    conda clean --all -f -y                 && \
     fix-permissions $CONDA_DIR $HOME
 
 # CHECK IF DOTFILES HAVE CHANGES
