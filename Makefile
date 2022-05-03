@@ -2,14 +2,14 @@
 # Builds custom image based on jupyter/scipy-notebook
 #
 # Example:
-#   make build tag=lab-3.3.3			-> builds an image with 3 tags: commit, latest and tag
-#   make build-no-cache tag=lab-3.3.3	-> builds from scratch, ignoring docker cache
-#   make push							-> push all images to Docker hub
-#   make build tag=smk-3.3.3 dockerfile=Dockerfile-snakemake -> alternative Dockerfile
+#   make build tag=lab-3.3.4                                 --> builds an image with 3 tags: commit, latest and tag
+#   make build-no-cache tag=lab-3.3.4                        --> builds from scratch, ignoring docker cache
+#   make push                                                --> push all images to Docker hub
+#   make build tag=smk-3.3.4 dockerfile=Dockerfile-snakemake --> alternative Dockerfile
 #
 # Routine workflow:
 #   1. Add changes to Dockerfile
-#   2. $ make build tag=lab-3.3.3
+#   2. $ make build tag=lab-3.3.4
 #   3. $ make push
 #
 # Snakemake workflow
@@ -24,7 +24,19 @@ port	:= 8888
 name	:= jupyterlab
 dockerfile := Dockerfile
 
-.PHONY: build build-no-cache tag push run
+.PHONY: help build build-no-cache tag push run
+
+help: ## View help
+	@awk 'BEGIN {FS="^#+ ?"; header=1; body=0}; \
+		  header == 1 {printf "\033[36m%s\033[0m\n", $$2} \
+		  /^#\s*$$/ {header=0; body=1; next} \
+		  body == 1 && /^#+ ?[^ \t]/ {print $$2} \
+		  body == 1 && /^#+( {2,}| ?\t)/ {printf "\033[0;37m%s\033[0m\n", $$2} \
+		  /^\s*$$/ {print "";exit}' $(MAKEFILE_LIST)
+	@echo "Rules:"
+	@grep -E '^[a-zA-Z_-]+:.*##[ \t]+.*$$' $(MAKEFILE_LIST) \
+	| sort \
+	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[36m%-20s\033[0m%s\n", $$1, $$2}'
 
 build: ## Build image
 	@docker build -f $(dockerfile) -t $(img):$(commit) .
@@ -46,16 +58,3 @@ push: ## Push to Dockerhub
 
 run: ## Run Jupyterlab image
 	@docker run --rm -p $(port):8888 -e JUPYTER_ENABLE_LAB=yes --name $(name) $(img)
-
-help: ## View help
-	@awk 'BEGIN {FS="^#+ ?"; header=1; body=0}; \
-		  header == 1 {printf "\033[36m%s\033[0m\n", $$2} \
-		  /^#\s*$$/ {header=0; body=1; next} \
-		  body == 1 && /^#+ ?[^ \t]/ {print $$2} \
-		  body == 1 && /^#+( {2,}| ?\t)/ {printf "\033[0;37m%s\033[0m\n", $$2} \
-		  /^\s*$$/ {print "";exit}' $(MAKEFILE_LIST)
-	@echo "Rules:"
-	@grep -E '^[a-zA-Z_-]+:.*##[ \t]+.*$$' $(MAKEFILE_LIST) \
-	| sort \
-	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[36m%-20s\033[0m%s\n", $$1, $$2}'
-
