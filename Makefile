@@ -1,21 +1,22 @@
 # My personal Jupyterlab image
 # Builds custom image based on jupyter/scipy-notebook
 #
-# Example:
-#   make build tag=lab-3.3.4                                 --> builds an image with 3 tags: commit, latest and tag
-#   make build-no-cache tag=lab-3.3.4                        --> builds from scratch, ignoring docker cache
-#   make push                                                --> push all images to Docker hub
-#   make build tag=smk-3.3.4 dockerfile=Dockerfile-snakemake --> alternative Dockerfile
-#
 # Routine workflow:
 #   1. Add changes to Dockerfile
 #   2. $ make build tag=lab-3.3.4
 #   3. $ make push
 #
-# Snakemake workflow
+# Snakemake workflow:
 #   1. Add changes to Dockerfile-snakemake
 #   2. $ make build tag=snakemake dockerfile=Dockerfile-snakemake
 #   3. $ make push tag=snakemake
+#
+# Other rules:
+#   make build tag=lab-3.3.4                                 --> builds an image with 3 tags: commit, latest and tag
+#   make build-no-cache tag=lab-3.3.4                        --> builds from scratch, ignoring docker cache
+#   make push                                                --> push all images to Docker hub
+#   make build tag=smk-3.3.4 dockerfile=Dockerfile-snakemake --> alternative Dockerfile
+#
 
 img 	:= yufernando/jupyterlab
 commit 	:= $$(git rev-parse --short HEAD)
