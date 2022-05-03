@@ -28,13 +28,15 @@ This will create two tags: `latest` and the latest commit hash.
 
 You can also add a third custom tag:
 ```
-make build tag=lab-3.1.12
+make build tag=lab-3.3.4
 ```
 
 Push all tags to Docker Hub:
 ```
 make push
 ```
+
+Run `make help` to see a description of Makefile rules.
 
 ## Run the Docker container
 
