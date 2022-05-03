@@ -14,7 +14,7 @@ RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotf
 WORKDIR /root/.dotfiles
 
 # Check if 2_install.sh has changes
-ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=ubuntu /tmp/2_install-version.json
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/3_install.sh?ref=ubuntu /tmp/3_install-version.json
 RUN make install
 
 # Check if entire dotfiles repository has changes
