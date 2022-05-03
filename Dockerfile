@@ -28,6 +28,8 @@ WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
 # INSTALL PYTHON PACKAGES
+RUN pip install pynvim  # installed with pip to avoid permission error
+
 RUN conda config --add channels defaults    && \
     conda config --add channels conda-forge && \
     mamba install --quiet --yes                \
@@ -35,7 +37,9 @@ RUN conda config --add channels defaults    && \
     nbdime                                     \
     jupyterlab-variableinspector               \
     openpyxl                                   \
-    pynvim                                  && \
+    flake8                                     \
+    black                                      \
+    && \
     conda clean --all -f -y                 && \
     fix-permissions $CONDA_DIR $HOME
 
