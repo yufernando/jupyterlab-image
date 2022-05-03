@@ -1,0 +1,28 @@
+# My Custom C Development Image
+FROM ubuntu:focal
+
+LABEL maintainer = "Fernando Yu <yufernando@gmail.com>"
+
+RUN apt update && apt -y upgrade && \
+    DEBIAN_FRONTEND=noninteractive apt install -y git make curl clang valgrind && \
+    # CS50 C Library
+    curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | bash && \ 
+    apt install -y libcs50
+
+# Get Dotfiles
+RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles /root/.dotfiles
+WORKDIR /root/.dotfiles
+
+# Check if 2_install.sh has changes
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/2_install.sh?ref=ubuntu /tmp/2_install-version.json
+RUN make install
+
+# Check if entire dotfiles repository has changes
+ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/dotfiles-version.json
+RUN make config
+
+# # Vim C Compile keybindings: use gcc instead of clang
+# RUN echo "nnoremap <silent> mC :silent w<CR>:T clear<CR>:echo system('gcc -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow '.expand('%').' -lcs50 -lm -o '.expand('%:r').' && echo Compiled to file: '.expand('%:r'))<CR>" >> ~/.dotfiles/vim/init.vim && \
+#     echo "nnoremap <silent> mc :silent w<CR>:T clear<CR>:exec \"TT gcc -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow \".expand('%').\" -lcs50 -lm -o \".expand('%:r').\" && ./\".expand('%:r')<CR>" >> ~/.dotfiles/vim/init.vim
+
+WORKDIR /root/work

@@ -1,21 +1,27 @@
-# My personal Jupyterlab image
-# Builds custom image based on jupyter/scipy-notebook
+# Build Docker images
+# Custom images for development with jupyterlab, snakemake and C.
+# Tags: lab-[version], snakemake, c-lang
 #
-# Routine workflow:
-#   1. Add changes to Dockerfile
-#   2. $ make build tag=lab-3.3.4
-#   3. $ make push
+# Jupyterlab workflow:
+#   - Add changes to Dockerfile
+#   - make build tag=lab-[version]
+#   - make push
 #
 # Snakemake workflow:
-#   1. Add changes to Dockerfile-snakemake
-#   2. $ make build tag=snakemake dockerfile=Dockerfile-snakemake
-#   3. $ make push tag=snakemake
+#   - Add changes to Dockerfile-snakemake
+#   - make build tag=snakemake dockerfile=Dockerfile-snakemake
+#   - make push tag=snakemake
+#
+# C-Lang workflow:
+#   - Add changes to Dockerfile-c-lang
+#   - make build tag=c-lang dockerfile=Dockerfile-c-lang
+#   - make push tag=c-lang
 #
 # Other rules:
-#   make build tag=lab-3.3.4                                 --> builds an image with 3 tags: commit, latest and tag
-#   make build-no-cache tag=lab-3.3.4                        --> builds from scratch, ignoring docker cache
+#   make build tag=lab-[version]                             --> builds an image with 3 tags: commit, latest and tag
+#   make build-no-cache tag=lab-[version]                    --> builds from scratch, ignoring docker cache
 #   make push                                                --> push all images to Docker hub
-#   make build tag=smk-3.3.4 dockerfile=Dockerfile-snakemake --> alternative Dockerfile
+#   make build tag=snakemake dockerfile=Dockerfile-snakemake --> alternative Dockerfile
 #
 
 img 	:= yufernando/jupyterlab
@@ -57,5 +63,5 @@ push: ## Push to Dockerhub
 	@docker push $(img):latest
 	@docker push $(img):$(tag)
 
-run: ## Run Jupyterlab image
-	@docker run --rm -p $(port):8888 -e JUPYTER_ENABLE_LAB=yes --name $(name) $(img)
+run: ## Run image in container
+	docker compose run --rm $(img)

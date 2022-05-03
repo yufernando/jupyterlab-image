@@ -11,3 +11,13 @@ services:
     restart: always
     environment:
       JUPYTER_ENABLE_LAB: 'yes'
+
+  c-lang:
+    container_name: c-lang
+    image: yufernando/c-lang
+    volumes:
+      - .:/root/work
+    working_dir: /root/work
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    command: /bin/zsh

@@ -49,7 +49,8 @@ make run
 
 The docker-compose script mounts a volume from the host folder `notebooks`.
 
-`docker-compose up`
+`docker-compose run --rm lab`
+`docker-compose run --rm c-lang`
 
 Remove the container:
 
