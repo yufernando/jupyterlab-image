@@ -14,8 +14,8 @@
 #
 # C-Lang workflow:
 #   - Add changes to Dockerfile-c-lang
-#   - make build tag=c-lang dockerfile=Dockerfile-c-lang
-#   - make push tag=c-lang
+#   - make build img=c-lang dockerfile=Dockerfile-c-lang
+#   - make push img=c-lang
 #
 # Other rules:
 #   make build tag=lab-[version]                             --> builds an image with 3 tags: commit, latest and tag
@@ -24,11 +24,11 @@
 #   make build tag=snakemake dockerfile=Dockerfile-snakemake --> alternative Dockerfile
 #
 
-img 	:= yufernando/jupyterlab
+img     := jupyterlab
+name 	:= yufernando/$(img)
 commit 	:= $$(git rev-parse --short HEAD)
 tag		:= latest
 port	:= 8888
-name	:= jupyterlab
 dockerfile := Dockerfile
 
 .PHONY: help build build-no-cache tag push run
@@ -46,22 +46,23 @@ help: ## View help
 	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[36m%-20s\033[0m%s\n", $$1, $$2}'
 
 build: ## Build image
-	@docker build -f $(dockerfile) -t $(img):$(commit) .
-	@docker tag $(img):$(commit) $(img):latest
-	@docker tag $(img):$(commit) ${img}:$(tag)
+	echo $(name)
+	@docker build -f $(dockerfile) -t $(name):$(commit) .
+	@docker tag $(name):$(commit) $(name):latest
+	@docker tag $(name):$(commit) ${name}:$(tag)
 
 build-no-cache: ## Build image without cache
-	@docker build -f $(dockerfile) -t $(img):$(commit) . --no-cache
-	@docker tag $(img):$(commit) $(img):latest
-	@docker tag $(img):$(commit) ${img}:$(tag)
+	@docker build -f $(dockerfile) -t $(name):$(commit) . --no-cache
+	@docker tag $(name):$(commit) $(name):latest
+	@docker tag $(name):$(commit) ${name}:$(tag)
 
 tag: ## Tag image
-	@docker tag $(img):$(commit) ${img}:$(tag)
+	@docker tag $(name):$(commit) ${name}:$(tag)
 
 push: ## Push to Dockerhub
-	@docker push $(img):$(commit)
-	@docker push $(img):latest
-	@docker push $(img):$(tag)
+	@docker push $(name):$(commit)
+	@docker push $(name):latest
+	@docker push $(name):$(tag)
 
 run: ## Run image in container
-	docker compose run --rm $(img)
+	docker compose run --rm $(name)
