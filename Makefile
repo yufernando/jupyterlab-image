@@ -29,14 +29,16 @@
 #
 
 name          := jupyterlab
-tag		      := latest
 user_name     := yufernando/$(name)
-user_name_tag := $(user_name):$(tag)
 commit 	      := $$(git rev-parse --short HEAD)
-since		  := $(commit)
-since_name_tag:= $(user_name):$(since)
+before		  := $(commit)
+before_name_tag:= $(user_name):$(before)
 port	      := 8888
 dockerfile    := Dockerfile
+user_name_tag := $(user_name):$(tag)
+ifndef tag
+	user_name_tag := $(user_name)
+endif
 
 ifeq ($(tag), snakemake)
 	dockerfile = Dockerfile-snakemake
@@ -82,14 +84,15 @@ run: ## Run image in container
 	docker compose run --rm $(user_name)
 
 prune: ## Remove old images
-	@if [ $(docker images --filter "reference=$(user_name):$(tag)" --filter "since=$(since_name_tag)") = ""]; then \
+	@prune_images=$$(docker images -q -f "reference=$(user_name_tag)" -f "before=$(before_name_tag)"); \
+	if [ "$$prune_images" = "" ]; then \
 		echo "Nothing to remove."; exit 0; \
 	fi; \
 	echo "WARNING! This will remove the following images:"; \
-	docker images --filter "reference=$(user_name):$(tag)" --filter "since=$(since_name_tag)"; \
+	docker images -f "reference=$(user_name_tag)" -f "before=$(before_name_tag)"; \
 	read -p "Are you sure you want to continue? [y/N] " answer; \
 	if [ "$$answer" = "y" ]; then \
-	docker images --filter "reference=$(user_name):$(tag)" --filter "since=$(since_name_tag)" --quiet | xargs docker image rm; \
+		docker image rm $$prune_images; \
 	else \
 		echo "Cancelled."; \
 	fi
