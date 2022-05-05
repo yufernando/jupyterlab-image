@@ -65,11 +65,10 @@ help: ## View help
 	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[36m%-20s\033[0m%s\n", $$1, $$2}'
 
 build: ## Build image
-	@docker build -f $(dockerfile) -t $(user_name):$(commit) .
-	@docker tag $(user_name):$(commit) $(user_name_tag)
-	@if [[ "$(tag)" != "snakemake" ]]; then \
-		docker tag $(user_name):$(commit) $(user_name):latest; \
-	fi
+	docker build -f $(dockerfile) -t $(user_name_tag) .
+	@if [[ "$(tag)" = "snakemake" ]]; then exit 0; fi; \
+	docker tag $(user_name_tag) $(user_name):$(commit); \
+	docker tag $(user_name_tag) $(user_name):latest;
 
 build-no-cache: ## Build image without cache
 	@docker build -f $(dockerfile) -t $(user_name):$(commit) . --no-cache
