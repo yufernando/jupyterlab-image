@@ -1,31 +1,32 @@
 # Build Docker images
-# Custom images for development with jupyterlab, snakemake and C.
-# Tags: lab-[version], snakemake, c-lang
+#
+# Build custom Docker images for development with jupyterlab, snakemake and C.
+#   tag: lab-[version], snakemake, latest (default: none)
+#   name: jupyterlab, c-lang (default: jupyterlab)
 #
 # Jupyterlab workflow:
 #   - Add changes to Dockerfile
-#   - make build tag=lab-[version]
-#   - make push
+#   make build tag=lab-[version]
+#   make push
 #
 # Snakemake workflow:
 #   - Add changes to Dockerfile-snakemake
-#   - make build tag=snakemake
-#   - make push tag=snakemake
+#   make build tag=snakemake
+#   make push tag=snakemake
 #
 # C-Lang workflow:
 #   - Add changes to Dockerfile-c-lang
-#   - make build name=c-lang
-#   - make push name=c-lang
+#   make build name=c-lang
+#   make push name=c-lang
 #
-# Prune old images:
+# Remove images older than last commit:
 #   make prune
 #   make prune name=c-lang
 #
 # Other rules:
-#   make build tag=lab-[version]                             --> builds an image with 3 tags: commit, latest and tag
-#   make build-no-cache tag=lab-[version]                    --> builds from scratch, ignoring docker cache
-#   make push                                                --> push all images to Docker hub
-#   make build tag=snakemake dockerfile=Dockerfile-snakemake --> alternative Dockerfile
+#   make build-no-cache tag=lab-[version]                    -> Skip Docker cache
+#   make build tag=snakemake dockerfile=Dockerfile-snakemake -> Specify alternative Dockerfile
+#   make prune tag=snakemake                                 -> Prune only specified tag
 #
 
 SHELL := /bin/bash
