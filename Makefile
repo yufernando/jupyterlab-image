@@ -19,6 +19,9 @@
 #   make build name=c-lang
 #   make push name=c-lang
 #
+# Build and push all:
+#   make all
+#
 # Remove images older than last commit:
 #   make prune
 #   make prune name=c-lang
@@ -50,7 +53,7 @@ ifeq ($(name), c-lang)
 	dockerfile = Dockerfile-c-lang
 endif
 
-.PHONY: help build build-no-cache tag push run prune
+.PHONY: help all build build-no-cache tag push run prune
 
 help: ## View help
 	@awk 'BEGIN {FS="^#+ ?"; header=1; body=0}; \
@@ -63,6 +66,14 @@ help: ## View help
 	@grep -E '^[a-zA-Z_-]+:.*##[ \t]+.*$$' $(MAKEFILE_LIST) \
 	| sort \
 	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[36m%-20s\033[0m%s\n", $$1, $$2}'
+
+all: ## Build and push all images
+	$(MAKE) build-no-cache tag=lab-3.3.4
+	$(MAKE) build-no-cache tag=snakemake
+	$(MAKE) build-no-cache name=c-lang
+	$(MAKE) push tag=lab-3.3.4
+	$(MAKE) push tag=snakemake
+	$(MAKE) push name=c-lang
 
 build: ## Build image
 	docker build -f $(dockerfile) -t $(user_name_tag) .
