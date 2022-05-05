@@ -1,16 +1,24 @@
-# JupyterLab Docker Image
+# Custom Docker images
 
-This is the repository of my custom JupyterLab Docker image. 
+This is the repository of my custom Docker images.
 
-Specs:
+## Specs:
 
+### Jupyterlab
 - Jupyterlab 3.1.12
     - Vim Keybindings
     - Jupyterlab Table of Contents
     - Jupyterlab-git extension
 - NBDime for easy diffing Jupyter Notebooks
-- Terminal: Zsh, Oh-my-zsh
 - Linux utilities: neovim, curl, tmux, ripgrep
+- Terminal: Zsh, Oh-my-zsh
+
+### C Language
+
+- Ubuntu 20.04 LTS (Focal)
+- GCC
+- Linux utilities: neovim, curl, tmux, ripgrep
+- Terminal: Zsh, Oh-my-zsh
 
 ## Instructions: build and push the image
 
@@ -26,32 +34,39 @@ make build
 ```
 This will create two tags: `latest` and the latest commit hash.
 
-You can also add a third custom tag:
+You can add a custom tag:
 ```
 make build tag=lab-3.3.4
 ```
 
-Push all tags to Docker Hub:
+Push the "latest" and "commit" tags to Dockerhub:
 ```
 make push
 ```
 
 Run `make help` to see a description of Makefile rules.
 
+### Snakemake
+
+The steps are the same as above but with the `tag=snakemake` flag:
+```
+make build tag=snakemake
+make push tag=snakemake
+```
+
+### 
+
 ## Run the Docker container
 
-Run the image created above:
+Run the image and mount the working directory using make:
 ```
 make run
 ```
-
-## Using docker-compose
-
-The docker-compose script mounts a volume from the host folder `notebooks`.
+Or docker-compose:
 
 `docker-compose run --rm lab`
 `docker-compose run --rm c-lang`
 
 Remove the container:
 
-`docker-compose down`
+edocker-compose down`
