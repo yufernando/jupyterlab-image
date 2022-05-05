@@ -4,7 +4,7 @@ services:
     container_name: jupyterlab
     image: yufernando/jupyterlab
     volumes:
-      - ./notebooks:/home/jovyan/work
+      - .:/home/jovyan/work
     working_dir: /home/jovyan/work/
     ports:
       - '8888:8888'
