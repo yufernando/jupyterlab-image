@@ -73,15 +73,15 @@ build: ## Build image
 build-no-cache: ## Build image without cache
 	@docker build -f $(dockerfile) -t $(user_name):$(commit) . --no-cache
 	@docker tag $(user_name):$(commit) $(user_name):latest
-	@docker tag $(user_name):$(commit) ${user_name}:$(tag)
+	@docker tag $(user_name):$(commit) $(user_name_tag)
 
 tag: ## Tag image
-	@docker tag $(user_name):$(commit) ${user_name}:$(tag)
+	@docker tag $(user_name):$(commit) $(user_name_tag)
 
 push: ## Push to Dockerhub
 	@docker push $(user_name):$(commit)
 	@docker push $(user_name):latest
-	@docker push $(user_name):$(tag)
+	@docker push $(user_name_tag)
 
 run: ## Run image in container
 	docker compose run --rm $(user_name)
