@@ -28,6 +28,8 @@
 #   make build tag=snakemake dockerfile=Dockerfile-snakemake --> alternative Dockerfile
 #
 
+SHELL := /bin/bash
+
 name          := jupyterlab
 user_name     := yufernando/$(name)
 commit 	      := $$(git rev-parse --short HEAD)
