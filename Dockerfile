@@ -32,12 +32,13 @@ RUN conda config --add channels defaults    && \
     conda config --add channels conda-forge && \
     mamba install --quiet --yes                \
     jupyterlab_vim                             \
-    nbdime                                     \
     jupyterlab-variableinspector               \
     openpyxl                                   \
     flake8                                     \
     black                                      \
-    && \
+    nbdime                                     \
+    nbstripout                                 \  
+                                            && \
     conda clean --all -f -y                 && \
     fix-permissions $CONDA_DIR $HOME
 
