@@ -28,8 +28,6 @@ WORKDIR "${HOME}/.dotfiles"
 RUN make install
 
 # INSTALL PYTHON PACKAGES
-RUN pip install pynvim  # installed with pip to avoid permission error
-
 RUN conda config --add channels defaults    && \
     conda config --add channels conda-forge && \
     mamba install --quiet --yes                \
