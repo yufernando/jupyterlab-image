@@ -84,7 +84,7 @@ build: ## Build image
 build-no-cache: ## Build image without cache
 	docker build -f $(dockerfile) -t $(user_name_tag) . --no-cache
 	@if [[ "$(tag)" = "snakemake" ]]; then exit 0; fi;	\
-	docker tag $(user_name_tag) $(user_name):$(commit);	\ 
+	docker tag $(user_name_tag) $(user_name):$(commit);	\
 	docker tag $(user_name_tag) $(user_name):latest
 
 tag: ## Tag image
