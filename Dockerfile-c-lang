@@ -10,15 +10,15 @@ RUN apt update && apt -y upgrade && \
     apt install -y libcs50
 
 # Get Dotfiles
-RUN git clone --single-branch --branch ubuntu https://github.com/yufernando/dotfiles /root/.dotfiles
+RUN git clone --single-branch --branch master https://github.com/yufernando/dotfiles /root/.dotfiles
 WORKDIR /root/.dotfiles
 
 # Check if 2_install.sh has changes
-ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/3_install.sh?ref=ubuntu /tmp/3_install-version.json
+ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/3_install.sh?ref=master /tmp/3_install-version.json
 RUN make install
 
 # Check if entire dotfiles repository has changes
-ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/ubuntu /tmp/dotfiles-version.json
+ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/master /tmp/dotfiles-version.json
 RUN make config
 
 # # Vim C Compile keybindings: use gcc instead of clang
