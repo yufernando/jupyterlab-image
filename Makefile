@@ -23,7 +23,8 @@
 #   make all
 #
 # Remove images older than last commit:
-# 	make pruneall
+#   make prune
+#   make prune name=jupyterlab
 #
 # Other rules:
 #   make build-no-cache tag=lab-[version]                    -> Skip Docker cache
@@ -97,22 +98,23 @@ push: ## Push to Dockerhub
 run: ## Run image in container
 	docker compose run --rm $(user_name)
 
-prune: ## Remove old images by name or tag
-	@prune_images=$$(docker images -q -f 								\
-		"reference=$(user_name_tag)" -f "before=$(before_name_tag)");	\
-	if [ "$$prune_images" = "" ]; then 									\
-		echo "Nothing to remove."; exit 0; 								\
-	fi; 																\
-	echo "WARNING! This will remove the following images:"; 			\
-	docker images -f 													\
-		"reference=$(user_name_tag)" -f "before=$(before_name_tag)"; 	\
-	read -p "Are you sure you want to continue? [y/N] " answer; 		\
-	if [ "$$answer" = "y" ]; then 										\
-		docker image rm $$prune_images; 								\
-	else 																\
-		echo "Cancelled."; 												\
+prune: ## Remove old images. Optional: name, tag.
+	@if [ -z $$tag ] && [ -z $$name ]; then 								\
+		$(MAKE) prune name=jupyterlab; 										\
+		$(MAKE) prune name=c-lang; 											\
+	else																	\
+		prune_images=$$(docker images -q -f 								\
+			"reference=$(user_name_tag)" -f "before=$(before_name_tag)");	\
+		if [ "$$prune_images" = "" ]; then 									\
+			echo "Nothing to remove."; exit 0; 								\
+		fi; 																\
+		echo "WARNING! This will remove the following images:"; 			\
+		docker images -f 													\
+			"reference=$(user_name_tag)" -f "before=$(before_name_tag)"; 	\
+		read -p "Are you sure you want to continue? [y/N] " answer; 		\
+		if [ "$$answer" = "y" ]; then 										\
+			docker image rm $$prune_images; 								\
+		else 																\
+			echo "Cancelled."; 												\
+		fi;																	\
 	fi
-
-pruneall: ## Remove all old images
-	$(MAKE) prune
-	$(MAKE) prune name=c-lang
