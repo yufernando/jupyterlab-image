@@ -24,8 +24,6 @@
 #
 # Remove images older than last commit:
 # 	make pruneall
-#   make prune
-#   make prune name=c-lang
 #
 # Other rules:
 #   make build-no-cache tag=lab-[version]                    -> Skip Docker cache
@@ -116,6 +114,5 @@ prune: ## Remove old images by name or tag
 	fi
 
 pruneall: ## Remove all old images
-	$(MAKE) prune tag=lab-3.3.4
-	$(MAKE) prune tag=snakemake
+	$(MAKE) prune
 	$(MAKE) prune name=c-lang
