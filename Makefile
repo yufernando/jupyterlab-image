@@ -98,9 +98,8 @@ push: ## Push to Dockerhub
 run: ## Run image in container
 	docker compose run --rm $(user_name)
 
-prune: ## Remove old images
-	@prune_images=\
-		$$(docker images -q -f 											\
+prune: ## Remove old images by name or tag
+	@prune_images=$$(docker images -q -f 								\
 		"reference=$(user_name_tag)" -f "before=$(before_name_tag)");	\
 	if [ "$$prune_images" = "" ]; then 									\
 		echo "Nothing to remove."; exit 0; 								\
