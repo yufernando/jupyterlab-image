@@ -23,6 +23,7 @@
 #   make all
 #
 # Remove images older than last commit:
+# 	make pruneall
 #   make prune
 #   make prune name=c-lang
 #
@@ -113,3 +114,8 @@ prune: ## Remove old images by name or tag
 	else 																\
 		echo "Cancelled."; 												\
 	fi
+
+pruneall: ## Remove all old images
+	$(MAKE) prune tag=lab-3.3.4
+	$(MAKE) prune tag=snakemake
+	$(MAKE) prune name=c-lang
