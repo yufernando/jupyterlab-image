@@ -34,10 +34,12 @@ RUN conda config --add channels defaults    && \
     jupyterlab_vim                             \
     jupyterlab-variableinspector               \
     openpyxl                                   \
-    flake8                                     \
-    black                                      \
     nbdime                                     \
     nbstripout                                 \  
+    jupyterlab_code_formatter                  \
+    flake8                                     \
+    black                                      \
+    isort                                      \
                                             && \
     conda clean --all -f -y                 && \
     fix-permissions $CONDA_DIR $HOME
