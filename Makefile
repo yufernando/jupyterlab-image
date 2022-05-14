@@ -57,9 +57,9 @@ endif
 help: ## View help
 	@awk 'BEGIN 					{ FS="^#+ ?"; header=1; body=0 }			\
 		  NR==1 					{ printf "\033[36m%s\033[0m\n", $$2; next }	\
-		  (header==1 && /^#.*?/)	{ printf "\033[34m%s\033[0m\n", $$2 }		\
-		  /^#\s*$$/ 				{ header=0; body=1; next }					\
-		  body==1 && /^#+ ?[^ \t]/	{ print $$2 } 								\
+		  header==1 && /^#.*?/		{ printf "\033[34m%s\033[0m\n", $$2 }		\
+		  /^#\s*$$/					{ header=0; body=1; next }					\
+		  body==1 && /^#+ ?[^\t]/	{ print $$2 } 								\
 		  /^\s*$$/ 					{ print "";exit }' $(MAKEFILE_LIST)
 	@echo "Rules:"
 	@grep -E '^[a-zA-Z_-]+:.*##[ \t]+.*$$' $(MAKEFILE_LIST) \
