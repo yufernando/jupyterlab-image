@@ -44,6 +44,8 @@ RUN conda config --add channels defaults    && \
     conda clean --all -f -y                 && \
     fix-permissions $CONDA_DIR $HOME
 
+RUN nbstripout --install --global
+
 # CHECK IF DOTFILES HAVE CHANGES
 ADD https://api.github.com/repos/yufernando/dotfiles/contents/scripts/4_config.sh?ref=master /tmp/4_config-version.json
 ADD https://api.github.com/repos/yufernando/dotfiles/git/refs/heads/master /tmp/dotfiles-version.json
