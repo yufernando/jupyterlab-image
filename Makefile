@@ -48,6 +48,9 @@ endif
 ifeq ($(tag), snakemake)
 	dockerfile = Dockerfile-snakemake
 endif
+ifeq ($(tag), geo)
+	dockerfile = Dockerfile-geo
+endif
 ifeq ($(name), c-lang)
 	dockerfile = Dockerfile-c-lang
 endif
@@ -69,14 +72,17 @@ help: ## View help
 all: ## Build and push all images with no cache
 	$(MAKE) build-no-cache tag=lab-3.6.3
 	$(MAKE) build-no-cache tag=snakemake
+	$(MAKE) build-no-cache tag=geo
 	$(MAKE) build-no-cache name=c-lang
 	$(MAKE) push tag=lab-3.6.3
 	$(MAKE) push tag=snakemake
+	$(MAKE) push tag=geo
 	$(MAKE) push name=c-lang
 
 build: ## Build image
 	docker build -f $(dockerfile) -t $(user_name_tag) .
 	@if [[ "$(tag)" = "snakemake" ]]; then exit 0; fi;	\
+	if [[ "$(tag)" = "geo" ]];        then exit 0; fi;  \
 	docker tag $(user_name_tag) $(user_name):$(commit);	\
 	docker tag $(user_name_tag) $(user_name):latest;
 

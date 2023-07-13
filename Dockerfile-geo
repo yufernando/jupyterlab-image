@@ -1,0 +1,18 @@
+# Jupyterlab with Geo packages (July 2023)
+FROM yufernando/jupyterlab:lab-3.6.3
+
+LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
+
+# USER INSTALL
+USER ${NB_UID}
+ENV HOME "/home/${NB_USER}"
+
+# INSTALL PYTHON PACKAGES
+RUN mamba install --quiet --yes         \
+    -c conda-forge                      \
+    geopandas                           \
+    fiona                               \
+    osmnx                            && \
+    conda clean --all -f -y
+
+WORKDIR "${HOME}/work"
