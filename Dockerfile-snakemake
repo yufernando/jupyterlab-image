@@ -1,5 +1,5 @@
-# Jupyterlab with Snakemake Image (April 2022)
-FROM yufernando/jupyterlab:lab-3.3.4
+# Jupyterlab with Snakemake Image (July 2023)
+FROM yufernando/jupyterlab:lab-3.6.3
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 

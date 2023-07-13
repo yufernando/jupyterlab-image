@@ -1,4 +1,4 @@
-# My Custom JupyterLab Image (April 2022)
+# My Custom JupyterLab Image (July 2023)
 FROM jupyter/scipy-notebook:lab-3.6.3
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"

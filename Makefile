@@ -19,7 +19,7 @@
 #   make push name=c-lang
 #
 # Build and push all, no cache:
-#   make all
+#   make all  # update tag inside Makefile before running
 #
 # Remove images older than last commit:
 #   make prune
@@ -67,10 +67,10 @@ help: ## View help
 	| awk 'BEGIN {FS=":.*##[ \t]+"}; {printf "\033[34m%-15s\033[0m%s\n", $$1, $$2}'
 
 all: ## Build and push all images with no cache
-	$(MAKE) build-no-cache tag=lab-3.3.4
+	$(MAKE) build-no-cache tag=lab-3.6.3
 	$(MAKE) build-no-cache tag=snakemake
 	$(MAKE) build-no-cache name=c-lang
-	$(MAKE) push tag=lab-3.3.4
+	$(MAKE) push tag=lab-3.6.3
 	$(MAKE) push tag=snakemake
 	$(MAKE) push name=c-lang
 
