@@ -12,6 +12,7 @@ RUN mamba install --quiet --yes         \
     -c conda-forge                      \
     geopandas                           \
     fiona                               \
+    momepy                              \
     osmnx                            && \
     conda clean --all -f -y
 

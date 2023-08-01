@@ -97,9 +97,11 @@ tag: ## Tag image
 	@docker tag $(user_name):$(commit) $(user_name_tag)
 
 push: ## Push to Dockerhub
-	@docker push $(user_name):$(commit)
-	@docker push $(user_name):latest
 	@docker push $(user_name_tag)
+	@if [[ "$(tag)" = "snakemake" ]]; then exit 0; fi; \
+	if [[ "$(tag)" = "geo" ]];        then exit 0; fi; \
+	docker push $(user_name):$(commit);				   \
+	docker push $(user_name):latest
 
 run: ## Run image in container
 	docker compose run --rm $(user_name)
