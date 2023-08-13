@@ -13,6 +13,11 @@
 #   make build tag=snakemake
 #   make push tag=snakemake
 #
+# Geo workflow:
+#   - Add changes to Dockerfile-geo
+#   make build tag=geo
+#   make push tag=geo
+#
 # C-Lang workflow:
 #   - Add changes to Dockerfile-c-lang
 #   make build name=c-lang
