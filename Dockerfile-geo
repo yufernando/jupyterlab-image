@@ -14,7 +14,8 @@ RUN mamba install --quiet --yes         \
     fiona                               \
     momepy                              \
     osmnx                               \
-    geopy                            && \
+    geopy                               \
+    pytest                           && \
     conda clean --all -f -y
 
 WORKDIR "${HOME}/work"
