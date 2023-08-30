@@ -15,7 +15,9 @@ RUN mamba install --quiet --yes         \
     momepy                              \
     osmnx                               \
     geopy                               \
-    pytest                           && \
+    pytest;                             \
+    mamba install --quiet --yes         \
+    -c mullenkamp osm2geojson;          \
     conda clean --all -f -y
 
 WORKDIR "${HOME}/work"
