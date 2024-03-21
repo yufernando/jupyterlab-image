@@ -11,6 +11,7 @@ ENV HOME "/home/${NB_USER}"
 RUN mamba install --quiet --yes         \
     -c conda-forge                      \
     geopandas                           \
+    shapely                             \
     fiona                               \
     momepy                              \
     osmnx                               \
