@@ -85,7 +85,7 @@ all: ## Build and push all images with no cache
 	$(MAKE) push name=c-lang
 
 build: ## Build image
-	docker build -f $(dockerfile) -t $(user_name_tag) .
+	docker build -f $(dockerfile) -t $(user_name_tag) --platform linux/arm64 .
 	@if [[ "$(tag)" = "snakemake" ]]; then exit 0; fi;	\
 	if [[ "$(tag)" = "geo" ]];        then exit 0; fi;  \
 	docker tag $(user_name_tag) $(user_name):$(commit);	\
