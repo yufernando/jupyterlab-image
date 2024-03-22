@@ -1,5 +1,6 @@
-# My Custom JupyterLab Image (July 2023)
-FROM jupyter/scipy-notebook:lab-3.6.3
+# My Custom JupyterLab Image (March 2024)
+# FROM quay.io/jupyter/scipy-notebook:lab-4.1.5 --> not compatible with vim
+FROM quay.io/jupyter/scipy-notebook:lab-4.0.9
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 
@@ -40,6 +41,7 @@ RUN conda config --add channels defaults    && \
     flake8                                     \
     black                                      \
     isort                                      \
+    python-dotenv                              \
                                             && \
     conda clean --all -f -y
 # RUN fix-permissions $CONDA_DIR $HOME  # creates permission errors

@@ -1,5 +1,6 @@
-# Jupyterlab with Geo packages (July 2023)
-FROM yufernando/jupyterlab:lab-3.6.3
+# Jupyterlab with Geo packages (March 2024)
+# FROM yufernando/jupyterlab:lab-4.1.5 --> not compatible with vim
+FROM yufernando/jupyterlab:lab-4.0.9
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
 
