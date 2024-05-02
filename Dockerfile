@@ -31,18 +31,19 @@ RUN make install
 # INSTALL PYTHON PACKAGES
 RUN conda config --add channels defaults    && \
     conda config --add channels conda-forge && \
-    mamba install --quiet --yes                \
-    jupyterlab_vim                             \
-    jupyterlab-variableinspector               \
-    openpyxl                                   \
-    nbdime                                     \
-    nbstripout                                 \  
-    jupyterlab_code_formatter                  \
+    mamba install --quiet --yes               \
+    jupyterlab_vim                            \
+    jupyterlab-variableinspector              \
+    openpyxl                                  \
+    nbdime                                    \
+    nbstripout                                \  
+    jupyterlab_code_formatter                 \
     flake8                                     \
-    black                                      \
-    isort                                      \
-    python-dotenv                              \
-                                            && \
+    black                                     \
+    isort                                     \
+    python-dotenv                             \
+    boto3                                     \ 
+                                           && \
     conda clean --all -f -y
 # RUN fix-permissions $CONDA_DIR $HOME  # creates permission errors
 
