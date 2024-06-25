@@ -1,25 +1,24 @@
 # Jupyterlab with Geo packages (March 2024)
 # FROM yufernando/jupyterlab:lab-4.1.5 --> not compatible with vim
+#
+#########################################
+# NOTE (June 2024): This Dockerfile does not work. Fiona (below) throws an installation
+# error
+#########################################
+
 FROM yufernando/jupyterlab:lab-4.0.9
 
 LABEL maintainer="Fernando Yu <yufernando@gmail.com>"
+
+USER root
+RUN apt install -y gdal-bin libgdal-dev g++
 
 # USER INSTALL
 USER ${NB_UID}
 ENV HOME "/home/${NB_USER}"
 
-# INSTALL PYTHON PACKAGES
+# This gives me an installation error
 RUN mamba install --quiet --yes         \
-    -c conda-forge                      \
-    geopandas                           \
-    shapely                             \
-    fiona                               \
-    momepy                              \
-    osmnx                               \
-    geopy                               \
-    pytest;                             \
-    mamba install --quiet --yes         \
-    -c mullenkamp osm2geojson;          \
-    conda clean --all -f -y
+    fiona
 
 WORKDIR "${HOME}/work"

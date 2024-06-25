@@ -1,4 +1,4 @@
-# My Custom JupyterLab Image (March 2024)
+# My Custom JupyterLab Image (June 2024)
 # FROM quay.io/jupyter/scipy-notebook:lab-4.1.5 --> not compatible with vim
 FROM quay.io/jupyter/scipy-notebook:lab-4.0.9
 
@@ -38,11 +38,22 @@ RUN conda config --add channels defaults    && \
     nbdime                                    \
     nbstripout                                \  
     jupyterlab_code_formatter                 \
-    flake8                                     \
+    flake8                                    \
     black                                     \
     isort                                     \
     python-dotenv                             \
     boto3                                     \ 
+    geopandas                                 \
+    shapely                                   \
+    momepy                                    \
+    osmnx                                     \
+    geopy                                     \
+    pytest                                    \
+                                           && \ 
+    mamba install --quiet --yes               \
+    -c mullenkamp osm2geojson                 \
+                                           && \
+    pip install netCDF4                       \
                                            && \
     conda clean --all -f -y
 # RUN fix-permissions $CONDA_DIR $HOME  # creates permission errors
