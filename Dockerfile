@@ -44,7 +44,7 @@ RUN conda config --add channels defaults    && \
     python-dotenv                             \
     boto3                                     \ 
     geopandas                                 \
-    shapely                                   \
+    # shapely                                   \
     momepy                                    \
     osmnx                                     \
     geopy                                     \
