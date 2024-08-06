@@ -49,6 +49,7 @@ RUN conda config --add channels defaults    && \
     osmnx                                     \
     geopy                                     \
     pytest                                    \
+    xarray                                    \
                                            && \ 
     mamba install --quiet --yes               \
     -c mullenkamp osm2geojson                 \
